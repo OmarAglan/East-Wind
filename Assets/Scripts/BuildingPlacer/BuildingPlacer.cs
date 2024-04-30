@@ -1,28 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BuildingPlacer : MonoBehaviour
 {
+
     private Building _placedBuilding = null;
     private Ray _ray;
     private RaycastHit _raycastHit;
     private Vector3 _lastPlacementPosition;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        // for now, we'll automatically pick our first
-        // building type as the type we want to build
-        _PreparePlacedBuilding(0);
-    }
 
     // Update is called once per frame
     void Update()
     {
         if (_placedBuilding != null)
         {
-            if (Input.GetKeyUp(KeyCode.Escape))
+            if (Input.GetKeyUp(KeyCode.Escape) || Input.GetMouseButton(1))
             {
                 _CancelPlacedBuilding();
                 return;
@@ -46,14 +40,18 @@ public class BuildingPlacer : MonoBehaviour
                 _lastPlacementPosition = _raycastHit.point;
             }
 
-            if (_placedBuilding.HasValidPlacement && Input.GetMouseButtonDown(0))
+            if (_placedBuilding.HasValidPlacement && Input.GetMouseButtonDown(0) &&
+                !EventSystem.current.IsPointerOverGameObject())
             {
                 // place building
                 _PlaceBuilding();
             }
         }
     }
-
+    public void SelectPlacedBuilding(int buildingDataIndex)
+    {
+        _PreparePlacedBuilding(buildingDataIndex);
+    }
     void _PreparePlacedBuilding(int buildingDataIndex)
     {
         // destroy the previous "phantom" if there is one
@@ -70,14 +68,24 @@ public class BuildingPlacer : MonoBehaviour
 
     void _CancelPlacedBuilding()
     {
-        // destroy the "phantom" building
+        // Destroy the "phantom" building
         Destroy(_placedBuilding.Transform.gameObject);
         _placedBuilding = null;
     }
     void _PlaceBuilding()
     {
+        // Build Building
         _placedBuilding.Place();
-        // keep on building the same building type
-        _PreparePlacedBuilding(_placedBuilding.DataIndex);
+        //Check IF You the Resources To Build
+        if (_placedBuilding.CanBuy())
+            // Ready phantom Buildings
+            _PreparePlacedBuilding(_placedBuilding.DataIndex);
+        else
+            //Cancel IF the Resources Is Not Enough
+            _placedBuilding = null;
+
+        //Update Resource On Ui And In Game
+        EventManager.TriggerEvent("UpdateResourceTexts");
+        EventManager.TriggerEvent("CheckBuildingButtons");
     }
 }

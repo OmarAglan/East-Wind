@@ -28,7 +28,7 @@ public class Building
                     Resources.Load($"Prefabs/Buildings/{_data.Code}"))
         as GameObject;
 
-        foreach (Material material in _transform.Find("Mesh").GetComponent<Renderer>().materials)
+        foreach (Material material in g.transform.Find("Mesh").GetComponent<MeshRenderer>().materials)
         {
             _materials.Add(new Material(material));
         }
@@ -42,7 +42,9 @@ public class Building
 
         SetMaterials();
     }
+
     public void SetMaterials() { SetMaterials(_placement); }
+
     public void SetMaterials(BuildingPlacement placement)
     {
         List<Material> materials;
@@ -74,6 +76,7 @@ public class Building
         }
         _transform.Find("Mesh").GetComponent<Renderer>().materials = materials.ToArray();
     }
+
     public void SetPosition(Vector3 position)
     {
         _transform.position = position;
@@ -83,12 +86,26 @@ public class Building
     {
         // set placement state
         _placement = BuildingPlacement.FIXED;
+
         // change building materials
         SetMaterials();
+
         // remove "is trigger" flag from box collider to allow
         // for collisions with units
         _transform.GetComponent<BoxCollider>().isTrigger = false;
+
+        // update game resources: remove the cost of the building from each game resource
+        foreach (KeyValuePair<string, int> pair in _data.Cost)
+        {
+            Globals.GAME_RESOURCES[pair.Key].AddAmount(-pair.Value);
+        }
     }
+
+    public bool CanBuy()
+    {
+        return _data.CanBuy();
+    }
+
     public void CheckValidPlacement()
     {
         if (_placement == BuildingPlacement.FIXED) return;
