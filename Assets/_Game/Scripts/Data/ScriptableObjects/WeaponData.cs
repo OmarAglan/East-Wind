@@ -33,12 +33,4 @@ namespace RTS.Data
         public GameObject muzzleFlashPrefab;
     }
 
-    public enum DamageType
-    {
-        Kinetic,        // Bullets, tank shells
-        HighExplosive,  // HE rounds, grenades
-        HEAT,           // Shaped charges
-        Fragmentation,  // Artillery, bombs
-        Incendiary      // Fire damage
-    }
 }

@@ -42,38 +42,4 @@ namespace RTS.Data
         public GameObject modelPrefab;
         public Sprite icon;
     }
-
-    public enum Faction
-    {
-        USA,
-        Russia
-    }
-
-    public enum UnitType
-    {
-        Infantry,
-        LightVehicle,
-        HeavyVehicle,
-        Artillery,
-        Aircraft,
-        Helicopter,
-        Naval
-    }
-
-    public enum ArmorType
-    {
-        None,
-        Light,
-        Medium,
-        Heavy,
-        Reactive,
-        Composite
-    }
-
-    public enum TechLevel
-    {
-        Tier1,
-        Tier2,
-        Tier3
-    }
 }

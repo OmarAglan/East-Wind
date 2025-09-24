@@ -23,7 +23,8 @@ namespace RTS.Data
 
         [Header("Capabilities")]
         public List<UnitData> producableUnits;
-        public List<ResearchData> availableResearch;
+        // TODO: Add research when we implement tech tree
+        // public List<ResearchData> availableResearch;
 
         [Header("Requirements")]
         public BuildingData requiredBuilding;
@@ -33,15 +34,5 @@ namespace RTS.Data
         public GameObject modelPrefab;
         public GameObject constructionPrefab;
         public Sprite icon;
-    }
-
-    public enum BuildingType
-    {
-        CommandCenter,
-        Production,
-        Defense,
-        Support,
-        Resource,
-        Superweapon
     }
 }
