@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9fb7904c2a73244be4f3de10d46665, type: 3}
+  m_Name: Unit 1
+  m_EditorClassIdentifier: Assembly-CSharp::RTS.Data.UnitData
+  unitName: InfantrySquad
+  designation: 
+  faction: 0
+  unitType: 0
+  maxHealth: 100
+  armor: 10
+  armorType: 1
+  moveSpeed: 10
+  turnSpeed: 10
+  acceleration: 20
+  canMove: 1
+  primaryWeapon: {fileID: 11400000, guid: 2601aa79c196dbc4bb16c26499282237, type: 2}
+  secondaryWeapon: {fileID: 11400000, guid: 2601aa79c196dbc4bb16c26499282237, type: 2}
+  visionRange: 10
+  detectionRange: 20
+  costSupplies: 1
+  costPower: 1
+  buildTime: 1
+  commandPointCost: 1
+  requiredBuilding: {fileID: 0}
+  requiredTechLevel: 0
+  modelPrefab: {fileID: 0}
+  icon: {fileID: 0}
